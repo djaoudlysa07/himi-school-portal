@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% set u = current_user() %}
+{% block title %}Timetable{% endblock %}
+{% block page_title %}Timetable{% endblock %}
+
+{% block subtitle %}{{ title }}{% endblock %}
+{% block topbar_actions %}
+{% if u.role == 'admin' %}
+<a href="/timetable/add" class="btn btn-primary"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Entry</a>
+{% endif %}
+{% endblock %}
+{% block content %}
+{% set colors = {
+  'Introduction to Networks': '#0F3460',
+  'Cloud Infrastructure':     '#1E5FAD',
+  'Multi-Platform Project':   '#2B7DD4',
+  'Linux Server':             '#276749',
+  'Python':                   '#38A169',
+  'Algorithm':                '#2F855A',
+  'Windows Server':           '#9B2335',
+  'VoIP':                     '#C05621'
+} %}
+<div class="card" style="overflow-x:auto;">
+  <table style="min-width:660px;border-collapse:separate;border-spacing:4px;">
+    <thead>
+      <tr>
+        <th style="width:110px;padding-bottom:12px;">Period</th>
+        {% for day in days %}<th style="text-align:center;color:var(--blue-900);font-size:12px;letter-spacing:0.5px;padding-bottom:12px;">{{ day }}</th>{% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for period in periods %}
+      <tr>
+        <td style="color:var(--text-muted);font-size:12px;font-weight:600;white-space:nowrap;padding:4px 8px 4px 0;vertical-align:middle;">{{ period }}</td>
+        {% for day in days %}
+          {% set cell = grid[day][period] %}
+          <td style="padding:3px;vertical-align:top;">
+            {% if cell %}
+            <div class="tt-cell" style="background:{{ colors.get(cell['subject'],'#1E5FAD') }};color:#fff;">
+              <div class="tt-subject">{{ cell['subject'] }}</div>
+              <div class="tt-detail">{{ cell['teacher'] }}</div>
+              {% if cell['room'] %}<div class="tt-detail">{{ cell['room'] }}</div>{% endif %}
+              {% if u.role=='admin' %}
+              <a href="/timetable/delete/{{ cell['id'] }}" style="font-size:10px;color:rgba(255,255,255,0.6);display:block;margin-top:4px;" onclick="return confirm('Remove entry?')">Remove</a>
+              {% endif %}
+            </div>
+            {% else %}
+            <div class="tt-cell" style="background:var(--off-white);border:1px dashed var(--gray-200);min-height:60px;">
+              <div style="font-size:11px;color:var(--gray-200);text-align:center;">—</div>
+            </div>
+            {% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

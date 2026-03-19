@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Attendance{% endblock %}
+{% block page_title %}Attendance{% endblock %}
+
+{% block subtitle %}Term 2 · Week of 16 March 2026{% endblock %}
+{% block content %}
+<div class="stats-row g4">
+  <div class="stat-card sc-blue"><div class="stat-label">Attendance Rate</div><div class="stat-val" data-target="{{ rate }}" data-suffix="%">0%</div></div>
+  <div class="stat-card sc-green"><div class="stat-label">Present</div><div class="stat-val" data-target="{{ present }}">0</div></div>
+  <div class="stat-card sc-red"><div class="stat-label">Absent</div><div class="stat-val" data-target="{{ absent }}" style="color:#9B2335">0</div></div>
+  <div class="stat-card sc-gold"><div class="stat-label">Late</div><div class="stat-val" data-target="{{ late }}" style="color:var(--gold)">0</div></div>
+</div>
+<div class="card">
+  <div class="card-head">
+    <div class="card-title">Weekly Attendance Record</div>
+    <div style="display:flex;gap:12px;font-size:12px;align-items:center;">
+      <span class="att-dot ap">P</span><span style="color:var(--text-muted)">Present</span>
+      <span class="att-dot aa">A</span><span style="color:var(--text-muted)">Absent</span>
+      <span class="att-dot al">L</span><span style="color:var(--text-muted)">Late</span>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table style="min-width:520px;">
+      <thead><tr><th>Period</th>{% for d in days %}<th style="text-align:center">{{ d }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {% for slot in slots %}
+        <tr>
+          <td style="color:var(--text-muted);font-size:13px;font-weight:600;white-space:nowrap">{{ slot }}</td>
+          {% for d in days %}
+            {% set s = att.get(d,{}).get(slot,'—') %}
+            <td style="text-align:center;padding:10px 6px;">
+              {% if s=='Present' %}<span class="att-dot ap">P</span>
+              {% elif s=='Absent' %}<span class="att-dot aa">A</span>
+              {% elif s=='Late' %}<span class="att-dot al">L</span>
+              {% else %}<span style="color:var(--gray-200);font-size:16px">—</span>{% endif %}
+            </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

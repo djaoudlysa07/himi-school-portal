@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Assignments{% endblock %}
+{% block page_title %}Assignments{% endblock %}
+
+{% block subtitle %}Teacher / Administrator view{% endblock %}
+{% block topbar_actions %}
+<a href="/assignments/add" class="btn btn-primary"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Assignment</a>
+{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-head"><div class="card-title">All Assignments</div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Title</th><th>Student</th><th>Subject</th><th>Due</th><th>Status</th>{% if current_user().role=='admin' %}<th></th>{% endif %}</tr></thead>
+      <tbody>
+        {% for a in assignments %}
+        <tr>
+          <td><strong>{{ a['title'] }}</strong>{% if a['description'] %}<div style="font-size:12px;color:var(--text-muted);margin-top:2px">{{ a['description'][:60] }}...</div>{% endif %}</td>
+          <td style="color:var(--text-muted)">{{ a['student_name'] or 'All' }}</td>
+          <td>{{ a['subject'] }}</td>
+          <td style="font-size:13px;color:var(--text-muted)">{{ a['due_date'] }}</td>
+          <td><span class="badge {% if a['status']=='done' %}b-green{% elif a['status']=='overdue' %}b-red{% else %}b-gold{% endif %}">
+            {% if a['status']=='done' %}Completed{% elif a['status']=='overdue' %}Overdue{% else %}Pending{% endif %}
+          </span></td>
+          {% if current_user().role=='admin' %}<td><a href="/assignments/delete/{{ a['id'] }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete?')">Delete</a></td>{% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

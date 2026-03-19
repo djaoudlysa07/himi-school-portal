@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIMI — {% block title %}{% endblock %}</title>
+<link rel="icon" href="/static/logo.png">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+{% set u = current_user() %}
+<div class="app-shell">
+
+<!-- ── Sidebar ───────────────────────────────────────────── -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-brand-logo" style="border:none;background:none;overflow:hidden;">
+      <img src="/static/logo.png" style="width:38px;height:38px;object-fit:contain;">
+    </div>
+    <div class="sb-brand-name">Higher International<br>Management Institute</div>
+    <div class="sb-brand-abbr">HIMI</div>
+  </div>
+
+  <nav class="sb-nav">
+    <div class="sb-section">Main</div>
+
+    <a href="/dashboard" class="sb-link {% if page=='dashboard' %}active{% endif %}">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </span>Dashboard
+    </a>
+    <a href="/announcements" class="sb-link {% if page=='announcements' %}active{% endif %}">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </span>Announcements
+    </a>
+    <a href="/grades" class="sb-link {% if page=='grades' %}active{% endif %}">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </span>Grades
+    </a>
+    <a href="/attendance" class="sb-link {% if page=='attendance' %}active{% endif %}">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </span>Attendance
+    </a>
+    <a href="/assignments" class="sb-link {% if page=='assignments' %}active{% endif %}">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </span>Assignments
+    </a>
+    <a href="/lessons" class="sb-link {% if page=='lessons' %}active{% endif %}">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </span>Lessons
+    </a>
+    <a href="/timetable" class="sb-link {% if page=='timetable' %}active{% endif %}">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </span>Timetable
+    </a>
+
+    {% if u and u['role'] == 'admin' %}
+    <div class="sb-section">Administration</div>
+    <a href="/users" class="sb-link {% if page=='users' %}active{% endif %}">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </span>Users
+    </a>
+    {% endif %}
+
+    {% if u and u['role'] in ('teacher','admin') %}
+    <div class="sb-section">Actions</div>
+    <a href="/grades/add" class="sb-link">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </span>Add Grade
+    </a>
+    <a href="/lessons/add" class="sb-link">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </span>Add Lesson
+    </a>
+    <a href="/assignments/add" class="sb-link">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </span>Add Assignment
+    </a>
+    <a href="/attendance/add" class="sb-link">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </span>Mark Attendance
+    </a>
+    {% if u['role'] == 'admin' %}
+    <a href="/timetable/add" class="sb-link">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </span>Manage Timetable
+    </a>
+    <a href="/announcements/add" class="sb-link">
+      <span class="sb-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </span>Post Announcement
+    </a>
+    {% endif %}
+    {% endif %}
+  </nav>
+
+  <div class="sb-user">
+    {% if u %}
+    <div class="sb-avatar">
+      {{ u['full_name'][0] }}{{ u['full_name'].split(' ')[-1][0] if ' ' in u['full_name'] else '' }}
+    </div>
+    <div style="flex:1;min-width:0;">
+      <div class="sb-user-name">{{ u['full_name'] }}</div>
+      <span class="sb-role-chip rc-{{ u['role'] }}">
+        {% if u['role']=='student' %}Student{% elif u['role']=='teacher' %}Teacher{% else %}Administrator{% endif %}
+        {% if u['class_group'] %} · {{ u['class_group'] }}{% endif %}
+      </span>
+    </div>
+    <a href="/logout" class="sb-logout" title="Sign out">
+      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    </a>
+    {% endif %}
+  </div>
+</aside>
+
+<!-- ── Main ──────────────────────────────────────────────── -->
+<div class="main-area">
+  <header class="topbar">
+    <div class="tb-left">
+      <h1>{% block page_title %}{% endblock %}</h1>
+      <div class="tb-breadcrumb">{% block subtitle %}{% endblock %}</div>
+    </div>
+    <div class="tb-right">{% block topbar_actions %}{% endblock %}</div>
+  </header>
+
+  <main class="page-body">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for cat, msg in messages %}
+      <div class="flash-msg flash-{{ 'success' if cat!='error' else 'error' }}">{{ msg }}</div>
+      {% endfor %}{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+</div>
+<script src="/static/js/main.js"></script>
+</body>
+</html>

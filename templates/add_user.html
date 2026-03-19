@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Add User{% endblock %}
+{% block page_title %}Add User{% endblock %}
+
+{% block subtitle %}Create a new account for a student, teacher, or administrator{% endblock %}
+{% block content %}
+<div class="card" style="max-width:520px;">
+  <div class="card-head"><div class="card-title">New User Account</div></div>
+  <form method="POST">
+    <div class="form-group"><label class="form-label">Full Name</label>
+      <input class="form-ctrl" type="text" name="full_name" required placeholder="e.g. Ahmed Benali"></div>
+    <div class="form-row f2">
+      <div class="form-group"><label class="form-label">Username</label>
+        <input class="form-ctrl" type="text" name="username" required placeholder="e.g. ahmed.b"></div>
+      <div class="form-group"><label class="form-label">Password</label>
+        <input class="form-ctrl" type="password" name="password" required placeholder="Minimum 8 characters"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Role</label>
+      <select class="form-ctrl" name="role" id="role-select">
+        <option value="student">Student</option><option value="teacher">Teacher</option><option value="admin">Administrator</option>
+      </select></div>
+    <div class="form-group" id="field-class"><label class="form-label">Class Group</label>
+      <input class="form-ctrl" type="text" name="class_group" placeholder="e.g. M1A"></div>
+    <div class="form-group" id="field-subject" style="display:none"><label class="form-label">Subject</label>
+      <input class="form-ctrl" type="text" name="subject" placeholder="e.g. Management"></div>
+    <div style="display:flex;gap:10px;margin-top:4px;">
+      <button type="submit" class="btn btn-primary">Create Account</button>
+      <a href="/users" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

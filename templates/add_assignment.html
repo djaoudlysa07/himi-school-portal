@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Add Assignment{% endblock %}
+{% block page_title %}Add Assignment{% endblock %}
+
+{% block subtitle %}Publish a new assignment for students{% endblock %}
+{% block content %}
+<div class="card" style="max-width:580px;">
+  <div class="card-head"><div class="card-title">New Assignment</div></div>
+  <form method="POST">
+    <div class="form-group"><label class="form-label">Title</label>
+      <input class="form-ctrl" type="text" name="title" required placeholder="Assignment title"></div>
+    <div class="form-group"><label class="form-label">Description / Instructions</label>
+      <textarea class="form-ctrl" name="description" placeholder="Detailed instructions for students..."></textarea></div>
+    <div class="form-row f2">
+      <div class="form-group"><label class="form-label">Subject</label>
+        <select class="form-ctrl" name="subject">{% for s in subjects %}<option>{{ s }}</option>{% endfor %}</select></div>
+      <div class="form-group"><label class="form-label">Assign To</label>
+        <select class="form-ctrl" name="student_id">
+          <option value="">All students</option>
+          {% for s in students %}<option value="{{ s['id'] }}">{{ s['full_name'] }}</option>{% endfor %}
+        </select></div>
+    </div>
+    <div class="form-group"><label class="form-label">Due Date</label>
+      <input class="form-ctrl" type="date" name="due_date" required></div>
+    <div style="display:flex;gap:10px;margin-top:4px;">
+      <button type="submit" class="btn btn-primary">Publish</button>
+      <a href="/assignments" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

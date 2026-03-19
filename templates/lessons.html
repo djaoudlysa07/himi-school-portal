@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% set u = current_user() %}
+{% block title %}Lessons{% endblock %}
+{% block page_title %}Lessons{% endblock %}
+
+{% block subtitle %}Course materials published by faculty{% endblock %}
+{% block topbar_actions %}
+{% if u.role in ('admin','teacher') %}
+<a href="/lessons/add" class="btn btn-primary"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Lesson</a>
+{% endif %}
+{% endblock %}
+{% block content %}
+{% if not lessons %}
+<div class="card" style="text-align:center;padding:48px 24px;">
+  <div style="font-family:'Lora',serif;font-size:18px;color:var(--blue-900);margin-bottom:8px;">No lessons published yet</div>
+  <p style="color:var(--text-muted);font-size:14px;">Lessons published by your teachers will appear here.</p>
+</div>
+{% endif %}
+{% for l in lessons %}
+<div class="lesson-card">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+    <div style="flex:1;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span class="badge b-blue">{{ l['subject'] }}</span>
+        {% if l['class_group'] %}<span class="badge b-gray">{{ l['class_group'] }}</span>{% endif %}
+      </div>
+      <div class="lesson-title">{{ l['title'] }}</div>
+      <div class="lesson-desc">{{ l['description'] }}</div>
+      <div style="font-size:11px;color:var(--gray-400);">Published by {{ l['teacher'] }} · {{ l['created_at'][:10] if l['created_at'] else '' }}</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-shrink:0;">
+      <a href="/lessons/{{ l['id'] }}" class="btn btn-outline btn-sm">Read</a>
+      {% if u.role in ('admin','teacher') %}
+      <a href="/lessons/delete/{{ l['id'] }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete lesson?')">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

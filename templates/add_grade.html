@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Add Grade{% endblock %}
+{% block page_title %}Add Grade{% endblock %}
+
+{% block subtitle %}Record a grade for a student{% endblock %}
+{% block content %}
+<div class="card" style="max-width:500px;">
+  <div class="card-head"><div class="card-title">New Grade Entry</div></div>
+  <form method="POST">
+    <div class="form-group"><label class="form-label">Student</label>
+      <select class="form-ctrl" name="student_id" required>
+        <option value="">— Select student —</option>
+        {% for s in students %}<option value="{{ s['id'] }}">{{ s['full_name'] }} ({{ s['class_group'] }})</option>{% endfor %}
+      </select></div>
+    <div class="form-row f2">
+      <div class="form-group"><label class="form-label">Subject</label>
+        <input class="form-ctrl" type="text" name="subject" required placeholder="e.g. Management"></div>
+      <div class="form-group"><label class="form-label">Score (%)</label>
+        <input class="form-ctrl" type="number" name="score" min="0" max="100" required placeholder="85"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Grade</label>
+      <select class="form-ctrl" name="grade">
+        <option>A+</option><option>A</option><option>B+</option><option>B</option><option>C+</option><option>C</option><option>D</option>
+      </select></div>
+    <div style="display:flex;gap:10px;margin-top:4px;">
+      <button type="submit" class="btn btn-primary">Save Grade</button>
+      <a href="/grades" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

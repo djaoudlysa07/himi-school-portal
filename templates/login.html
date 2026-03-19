@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIMI — Sign In</title>
+<link rel="icon" href="/static/logo.png">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="login-page">
+
+  <!-- LEFT: Form -->
+  <div class="login-left">
+
+    <!-- Logo + school name -->
+    <div class="login-logo-area">
+      <div style="margin-bottom:16px;display:flex;align-items:center;justify-content:center;">
+        <img src="/static/logo.png" style="width:100px;height:100px;object-fit:contain;">
+      </div>
+      <div class="login-school-name">Higher International Management Institute</div>
+      <div class="login-school-abbr">HIMI</div>
+      <div class="login-divider"></div>
+    </div>
+
+    <!-- Form -->
+    <div class="login-form-box">
+      <div class="login-heading">Login</div>
+      <div class="login-subheading">Enter your account details</div>
+
+      {% if error %}
+      <div class="login-error">{{ error }}</div>
+      {% endif %}
+
+      <form method="POST">
+        <div class="login-field">
+          <label class="login-label">Username</label>
+          <input class="login-input" type="text" name="username" placeholder="Enter your username" autocomplete="username" required>
+        </div>
+        <div class="login-field">
+          <label class="login-label">Password</label>
+          <input class="login-input" type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+
+      <div class="demo-accounts">
+        <div class="demo-label">Demo Accounts — Click to fill</div>
+        <div class="demo-grid">
+          <div class="demo-item" data-user="lysa" data-pass="student123">
+            <div>
+              <div class="demo-name">Lysa</div>
+              <div class="demo-creds">lysa / student123</div>
+            </div>
+            <span class="demo-role dr-student">Student</span>
+          </div>
+          <div class="demo-item" data-user="lallal" data-pass="teacher123">
+            <div>
+              <div class="demo-name">Mr. LALLAL AHMAD</div>
+              <div class="demo-creds">lallal / teacher123</div>
+            </div>
+            <span class="demo-role dr-teacher">Teacher</span>
+          </div>
+          <div class="demo-item" data-user="admin" data-pass="admin123">
+            <div>
+              <div class="demo-name">Administration</div>
+              <div class="demo-creds">admin / admin123</div>
+            </div>
+            <span class="demo-role dr-admin">Admin</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Visual panel -->
+  <div class="login-right">
+    <div class="login-right-bg"></div>
+
+    <!-- Decorative circles -->
+    <div class="geo-circle" style="width:500px;height:500px;top:-100px;right:-100px;"></div>
+    <div class="geo-circle" style="width:300px;height:300px;bottom:-80px;left:-80px;border-color:rgba(184,148,28,0.08);"></div>
+    <div class="geo-circle" style="width:180px;height:180px;top:40%;right:10%;border-color:rgba(255,255,255,0.04);"></div>
+
+    <div class="login-right-content">
+      <div class="login-right-title">
+        Welcome to<br><span>Student Portal</span>
+      </div>
+      <div class="login-right-sub">
+        Login to access your academic dashboard, grades, assignments, lessons, and more.
+      </div>
+
+      <!-- Image placeholder -->
+      <div style="width:360px;height:360px;border-radius:16px;overflow:hidden;">
+        <img src="/static/519681983_122179112324067946_811555869334234192_n.jpg" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+
+</div>
+<script src="/static/js/main.js"></script>
+</body>
+</html>

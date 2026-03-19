@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}New Announcement{% endblock %}
+{% block page_title %}New Announcement{% endblock %}
+
+{% block subtitle %}Publish a message to all staff and students{% endblock %}
+{% block content %}
+<div class="card" style="max-width:580px;">
+  <div class="card-head"><div class="card-title">Post Announcement</div></div>
+  <form method="POST">
+    <div class="form-group"><label class="form-label">Title</label>
+      <input class="form-ctrl" type="text" name="title" required placeholder="Announcement title"></div>
+    <div class="form-group"><label class="form-label">Body</label>
+      <textarea class="form-ctrl" name="body" required placeholder="Full announcement text..."></textarea></div>
+    <div class="form-group"><label class="form-label">Category</label>
+      <select class="form-ctrl" name="tag">
+        <option>Academic</option><option>Administrative</option><option>Events</option><option>General</option>
+      </select></div>
+    <div style="display:flex;gap:10px;margin-top:4px;">
+      <button type="submit" class="btn btn-primary">Publish</button>
+      <a href="/announcements" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

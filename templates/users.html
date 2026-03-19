@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}User Management{% endblock %}
+{% block page_title %}User Management{% endblock %}
+
+{% block subtitle %}Administration · HIMI{% endblock %}
+{% block topbar_actions %}
+<a href="/users/add" class="btn btn-primary"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add User</a>
+{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-head"><div class="card-title">All Users</div><span style="font-size:13px;color:var(--text-muted)">{{ users|length }} total</span></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Class / Subject</th><th>Created</th><th></th></tr></thead>
+      <tbody>
+        {% for u in users %}
+        <tr>
+          <td><div style="display:flex;align-items:center;gap:9px;"><div class="tbl-avatar">{{ u['full_name'][0] }}{{ u['full_name'].split(' ')[-1][0] if ' ' in u['full_name'] else '' }}</div><strong>{{ u['full_name'] }}</strong></div></td>
+          <td style="font-family:monospace;font-size:13px;color:var(--text-muted)">{{ u['username'] }}</td>
+          <td><span class="badge {% if u['role']=='student' %}b-blue{% elif u['role']=='teacher' %}b-green{% else %}b-gold{% endif %}">{{ u['role']|capitalize }}</span></td>
+          <td style="color:var(--text-muted)">{{ u['class_group'] or u['subject'] or '—' }}</td>
+          <td style="font-size:12px;color:var(--gray-400)">{{ u['created_at'][:10] if u['created_at'] else '—' }}</td>
+          <td><a href="/users/delete/{{ u['id'] }}" class="btn btn-danger btn-sm" onclick="return confirm('Delete user permanently?')">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

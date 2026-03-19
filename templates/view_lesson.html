@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ lesson['title'] }}{% endblock %}
+{% block page_title %}{{ lesson['title'] }}{% endblock %}
+
+{% block subtitle %}{{ lesson['subject'] }} · {{ lesson['teacher'] }}{% endblock %}
+{% block topbar_actions %}
+<a href="/lessons" class="btn btn-ghost btn-sm">Back to Lessons</a>
+{% endblock %}
+{% block content %}
+<div class="card" style="max-width:720px;">
+  <div style="display:flex;gap:8px;margin-bottom:16px;">
+    <span class="badge b-blue">{{ lesson['subject'] }}</span>
+    {% if lesson['class_group'] %}<span class="badge b-gray">{{ lesson['class_group'] }}</span>{% endif %}
+  </div>
+  <h2 style="font-family:'Lora',serif;font-size:24px;font-weight:700;color:var(--blue-900);margin-bottom:8px;">{{ lesson['title'] }}</h2>
+  <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">Published by {{ lesson['teacher'] }} · {{ lesson['created_at'][:10] if lesson['created_at'] else '' }}</p>
+  {% if lesson['description'] %}
+  <div style="background:var(--blue-50);border-left:4px solid var(--blue-400);padding:14px 18px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:20px;font-style:italic;color:var(--blue-700);font-size:14px;">
+    {{ lesson['description'] }}
+  </div>
+  {% endif %}
+  <div style="font-size:15px;line-height:1.8;color:var(--text);white-space:pre-wrap;">{{ lesson['content'] }}</div>
+</div>
+{% endblock %}

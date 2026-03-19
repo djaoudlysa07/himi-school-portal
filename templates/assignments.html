@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Assignments{% endblock %}
+{% block page_title %}Assignments{% endblock %}
+
+{% block subtitle %}Track your coursework and submissions{% endblock %}
+{% block content %}
+<div class="stats-row g3">
+  <div class="stat-card sc-gold"><div class="stat-label">Pending</div><div class="stat-val" data-target="{{ pending|length }}">0</div></div>
+  <div class="stat-card sc-green"><div class="stat-label">Completed</div><div class="stat-val" data-target="{{ done|length }}">0</div></div>
+  <div class="stat-card sc-red"><div class="stat-label">Overdue</div><div class="stat-val" data-target="{{ overdue|length }}" style="color:#9B2335">0</div></div>
+</div>
+{% if overdue %}
+<div class="card" style="border-left:4px solid #9B2335;">
+  <div class="card-head"><div class="card-title" style="color:#9B2335">Overdue</div></div>
+  {% for a in overdue %}
+  <div class="asgn-item">
+    <div class="asgn-check" data-href="/assignments/complete/{{ a['id'] }}"></div>
+    <div style="flex:1"><div class="asgn-title">{{ a['title'] }}</div><div class="asgn-meta">{{ a['teacher'] }} · {{ a['subject'] }}</div></div>
+    <span class="due-overdue">{{ a['due_date'] }}</span>
+    <a href="/assignments/complete/{{ a['id'] }}" class="btn btn-ghost btn-sm">Mark done</a>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+<div class="card">
+  <div class="card-head"><div class="card-title">Pending Assignments</div></div>
+  {% if pending %}{% for a in pending %}
+  <div class="asgn-item">
+    <div class="asgn-check" data-href="/assignments/complete/{{ a['id'] }}"></div>
+    <div style="flex:1"><div class="asgn-title">{{ a['title'] }}</div><div class="asgn-meta">{{ a['teacher'] }} · {{ a['subject'] }}{% if a['description'] %} — {{ a['description'][:80] }}...{% endif %}</div></div>
+    <span class="due-soon">{{ a['due_date'] }}</span>
+    <a href="/assignments/complete/{{ a['id'] }}" class="btn btn-ghost btn-sm">Mark done</a>
+  </div>
+  {% endfor %}{% else %}
+  <p style="color:var(--text-muted);font-size:14px;padding:14px 0">All caught up — no pending assignments.</p>
+  {% endif %}
+</div>
+<div class="card">
+  <div class="card-head"><div class="card-title">Completed</div></div>
+  {% for a in done %}
+  <div class="asgn-item">
+    <div class="asgn-check done">&#10003;</div>
+    <div style="flex:1"><div class="asgn-title done">{{ a['title'] }}</div><div class="asgn-meta">{{ a['subject'] }}</div></div>
+    <span class="due-done">Submitted</span>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Mark Attendance{% endblock %}
+{% block page_title %}Mark Attendance{% endblock %}
+
+{% block subtitle %}Record student attendance for a session{% endblock %}
+{% block content %}
+<div class="card" style="max-width:520px;">
+  <div class="card-head"><div class="card-title">Attendance Entry</div></div>
+  <form method="POST">
+    <div class="form-group"><label class="form-label">Student</label>
+      <select class="form-ctrl" name="student_id" required>
+        <option value="">— Select student —</option>
+        {% for s in students %}<option value="{{ s['id'] }}">{{ s['full_name'] }} ({{ s['class_group'] }})</option>{% endfor %}
+      </select></div>
+    <div class="form-row f2">
+      <div class="form-group"><label class="form-label">Day</label>
+        <select class="form-ctrl" name="day">
+          <option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option>
+        </select></div>
+      <div class="form-group"><label class="form-label">Period</label>
+        <select class="form-ctrl" name="period">
+          <option>08:00-10:00</option><option>10:15-12:15</option><option>13:30-15:30</option>
+        </select></div>
+    </div>
+    <div class="form-group"><label class="form-label">Status</label>
+      <select class="form-ctrl" name="status">
+        <option>Present</option><option>Absent</option><option>Late</option>
+      </select></div>
+    <div style="display:flex;gap:10px;margin-top:4px;">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a href="/attendance" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
