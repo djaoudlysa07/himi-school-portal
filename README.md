@@ -1,3 +1,5 @@
+LINK TO THE WEBSITE: https://himi-school-portal.onrender.com
+
 HIMI School Management Portal
 Institution: Higher International Management Institute
 Academic Year: 2025–2026
